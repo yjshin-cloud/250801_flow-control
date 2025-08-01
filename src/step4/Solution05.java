@@ -62,6 +62,22 @@ public class Solution05 {
         arr6[0] = "안녕하세요!";
         System.out.println(Arrays.toString(arr6));
 
+        int[][] dbArr = new int[10][10];
+        System.out.println(dbArr);
+        System.out.println(Arrays.toString(dbArr)); // 주소값 묶음
+        dbArr[5][5] = 100;
+        System.out.println(Arrays.deepToString(dbArr));
+        // [[0, 0, 0 ...], [0, 0, 0 ...], ... , [0, 0, 0 ...]]
+
+        // 타입[] 변수명 = new 타입[자리수]; -> 만들거나...
+        // 타입[] 변수명 = {...} <- 초기화할 값들을 나열...
+        // index로 값을 호출하거나, 할당하거나 할 수 있는데
+        // index는 0 ~ 길이 -1
+        // 배열의 길이는 배열명.length로 조회 가능
+        // 배열 자체는 일종의 객체(메모리 주소)라서 출력하면 주소 나옴
+        // -> Arrays.toString() ... -> 이중배열 이상 ->
+        // Arrays.deepToString을 써야한다
+
 
 
 
