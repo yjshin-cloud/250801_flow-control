@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Random;
 import java.util.Scanner;
 
 public class GeminiChatVer2 {
@@ -34,6 +35,7 @@ public class GeminiChatVer2 {
                     ]
                   }
                 """;
+        Random rd = new Random();
         while (true) {
             // 계속 반복
             System.out.print("원하시는 명령을 입력해주세요. (시작, 종료) : ");
@@ -54,27 +56,33 @@ public class GeminiChatVer2 {
             // 이전사항? 어디에다가 저장할까요?
 
             // 여기서 요청을 보낼 예정.
+            String prompt = "%d글자 길이 이하의 스무고개용 띄어쓰기 없는 한글 단어 1개를 과정 없이 결과만 출력해줘.".formatted(rd.nextInt(3, 6)); // 3~5글자 단어
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(GEMINI_URL))
                     .headers("Content-Type", "application/json",
                             "X-goog-api-key", GEMINI_API_KEY)
                     .POST(HttpRequest.BodyPublishers.ofString(
-                            bodyTemplate.formatted(
-                                    "5글자 길이 이하의 스무고개용 띄어쓰기 없는 한글 단어 1개를 과정 없이 결과만 출력해줘."
-                            )
+                            bodyTemplate.formatted(prompt)
                     ))
                     .build();
+            String aiResult = "";
             try {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                System.out.println(response.body());
+//                System.out.println(response.body());
+                aiResult = response.body()
+                        .split("\"text\": \"")[1] // 0, 1, 2....
+                        .split("}")[0]
+                        .replace("\\n\"", "")
+                        .trim();
+                System.out.println(aiResult);
             } catch (Exception e) {
                 System.err.println(e.getMessage()); // 에러가 날 경우 해당 메시지를 확인 (429? 403?)
                 // 403 : 키를 잘 못넣은거고
                 // 429 : 키를 너무 많이 쓴 것
             }
-            String twenty = "고양이";
+            // String twenty = "고양이";
 
-            System.out.println("스무고개 답은 %s입니다.".formatted(twenty));
+            System.out.println("스무고개 답은 %s입니다.".formatted(aiResult));
 
 //            System.out.print("원하시는 명령을 입력해주세요. (시작, 종료) : ");
 //            String cmd = sc.nextLine();
