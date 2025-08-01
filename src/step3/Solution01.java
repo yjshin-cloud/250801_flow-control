@@ -51,8 +51,8 @@ public class Solution01 {
                 System.out.println("살 수 있는 신발이 없습니다");
             } else {
                 System.out.println("잘 오셨어요~ ");
-                // 여기에 있으면 위에 조건과 상관없이...
             }
+            // 여기에 있으면 위에 조건과 상관없이...
         }
     }
 }
