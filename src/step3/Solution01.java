@@ -42,6 +42,17 @@ public class Solution01 {
             // footSize >= 200 && footSize <= 300
             // !(footSize < 200) || !(footSize > 300)  : 논리연산
             System.out.println("신발이 존재합니다");
+            // 블록은 중첩이 된다
+            System.out.print("소지금이 얼마입니까? : ");
+            // {} 밖에 있는 변수는 내부에서 호출 가능
+            int money = sc.nextInt();
+            System.out.println("당신의 소지금은 %d 원입니다".formatted(money));
+            if (money < 50000) {
+                System.out.println("살 수 있는 신발이 없습니다");
+            } else {
+                System.out.println("잘 오셨어요~ ");
+                // 여기에 있으면 위에 조건과 상관없이...
+            }
         }
     }
 }
